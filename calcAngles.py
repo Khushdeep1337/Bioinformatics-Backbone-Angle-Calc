@@ -73,13 +73,18 @@ def calculate_phi_psi(residues, start, end):
     return torsion_angles
 
 def main():
-    pdb_file = "C:/Users/Khushdeep.SKYBEAST/Downloads/model.txt"  # Path
-    start_res = 80
-    end_res = 90
-
-    # Parse the PDB file
-    residues = parse_pdb(pdb_file)
-
+    pdb_file = input("Enter the path to the PDB or TXT file: ").strip()
+    try:
+        start_res = int(input("Enter the starting residue: ").strip())
+        end_res = int(input("Enter the last residue: ").strip())
+    except ValueError:
+        print("Invalid input. Non Integer value received.")
+        return
+    try:
+        residues = parse_pdb(pdb_file)
+    except FileNotFoundError:
+        print("Error: File not found. Please provide a valid path.")
+        return
     # Calculate torsion angles
     torsion_angles = calculate_phi_psi(residues, start_res, end_res)
 
